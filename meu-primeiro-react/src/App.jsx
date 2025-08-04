@@ -21,6 +21,26 @@ const Cartao = ({título}) => {
  
 const App = () => {
   const [termoBusca, setTermoBusca] = useState("");
+  const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;
+  const API_URL_BASE = 'https://api.themoviedb.org/3';
+  const API_OPCOES = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${API_TOKEN}`
+    }
+  }
+
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const fetchMovies = async () => {
+    try{
+
+    } catch(error){
+      console.error(`Erro ao buscar filmes: ${error}`);
+      setErrorMessage('Erro ao buscar filmes. Favor tentar mais tarde.');
+    }
+  }
   return(
     <main>
       <div className="pattern"/>
@@ -33,7 +53,11 @@ const App = () => {
         </header>
           < Buscar termoBusca={termoBusca} setTermoBusca={setTermoBusca}/>
           <h1 className="text-white">{termoBusca}</h1>
-      </div>
+          <section className='all-movies'>
+            <h2>Todos os filmes</h2>
+            {errorMessage && <p className='text-red-500'>{errorMessage}</p>}  
+          </section>
+      </div> 
     </main>
  
  
