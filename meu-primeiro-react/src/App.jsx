@@ -31,11 +31,7 @@ const App = () => {
             Encontre Os <span className="text-gradient">Filmes</span> Que Você vai Gostar
           </h1>
         </header>
-          <h2>Componente Funcional</h2>
-          <Cartao título="Kill Bill"/>
-          <Cartao título="Toy Story 2"/>
-          <Cartao título="Blade"/>
-          < Buscar/>
+          < Buscar termoBusca={TermoBusca} setTermoBusca={setTermoBusca}/>
       </div>
     </main> 
 
