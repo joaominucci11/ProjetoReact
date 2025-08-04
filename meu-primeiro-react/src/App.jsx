@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Buscar from './component/Buscar';
-
+import Buscar from './component/Buscar.jsx';
+ 
 const Cartao = ({título}) => {
   const [curtiu, setCurtiu] = useState(false);
   const [contagem, setContagem] = useState(0);
@@ -18,7 +18,7 @@ const Cartao = ({título}) => {
     </div>
   )
 }
-
+ 
 const App = () => {
   const [termoBusca, setTermoBusca] = useState("");
   return(
@@ -31,12 +31,14 @@ const App = () => {
             Encontre Os <span className="text-gradient">Filmes</span> Que Você vai Gostar
           </h1>
         </header>
-          < Buscar termoBusca={TermoBusca} setTermoBusca={setTermoBusca}/>
+          < Buscar termoBusca={termoBusca} setTermoBusca={setTermoBusca}/>
       </div>
-    </main> 
-
-
+    </main>
+ 
+ 
   )
 }
-
+ 
 export default App
+ 
+ 
