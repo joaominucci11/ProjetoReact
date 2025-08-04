@@ -1,5 +1,3 @@
-curl --request GET --url 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZTEzYWZmOGM2NTU4NzA5MzFlNTIzMTllYWY4YTI5NyIsIm5iZiI6MTc1NDMyNDcxMy41MTAwMDAyLCJzdWIiOiI2ODkwZGVlOWIzMzBiODVhNDRhNDZiMDYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Ia1e6JM3upzWV0Tjy8nc2btqZ2UmWgkQqmQpY9sEzYo' --header 'accept: application/json'
- 
 @import "tailwindcss";
  
 @theme{
