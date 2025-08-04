@@ -32,6 +32,7 @@ const App = () => {
           </h1>
         </header>
           < Buscar termoBusca={termoBusca} setTermoBusca={setTermoBusca}/>
+          <h1 className="text-white">{termoBusca}</h1>
       </div>
     </main>
  

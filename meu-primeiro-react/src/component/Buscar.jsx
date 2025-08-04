@@ -7,7 +7,7 @@ const Buscar = ({termoBusca, setTermoBusca}) =>{
             <input
                 type="text"
                 placeholder="Busque em milhares de filmes"
-                aria-valuenow={termoBusca}
+                value={termoBusca}
                 onChange={(e )=>setTermoBusca(e.target.value)}
             ></input>
         </div>
