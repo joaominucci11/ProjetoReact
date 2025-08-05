@@ -1,6 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useLayoutEffect, useState } from 'react';
+import './App.css';
 import Buscar from './component/Buscar.jsx';
+import Card from './component/Card.jsx';
  
 // hooks são funções do react que permitem utilizar recursos como estado e efeitos colaterais (useState/useEffect).
  
@@ -88,8 +89,8 @@ const App = () => {
           <p className="text-red-500">{errorMessage}</p>
           ): (
             <ul>
-              {movieList.map((movie) =>(
-                <p className="text-white">{movie.title}</p>
+              {movieList.map((movie) => (
+                <Card movie={movie}/>
               ))}
             </ul>
           )
