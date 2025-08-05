@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import './App.css'
 import Buscar from './component/Buscar.jsx';
  
@@ -8,8 +8,8 @@ const Cartao = ({título}) => {
   const [curtiu, setCurtiu] = useState(false);
   const [contagem, setContagem] = useState(0);
   useEffect(()=>{ // lidar com efeitos colaterais
-    console.log(`${título} foi curtido: ${curtiu}`); // função lambda/callback é o primeiro parâmetro
-  }, [curtiu]); // variável 'curtiu' é o segundo parâmetro, se não informada, um array com todas as variáveis é criado.
+    console.log(`${título} foi curtido: ${curtiu}`);
+  }, [curtiu]);
   return(
     <div className="text-3xl underline text-red-500" onClick={()=>setContagem(contagem + 1)}>
       <h2>{título}</h2>
@@ -22,7 +22,11 @@ const Cartao = ({título}) => {
 }
  
 const App = () => {
-  const [termoBusca, setTermoBusca] = useState(""); // desestruturação (quando atribui uma variável e uma função a uma variável/constante). A função altera o valor da variável.
+  const [termoBusca, setTermoBusca] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
+  const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+ 
   const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;
   const API_URL_BASE = 'https://api.themoviedb.org/3'
   const API_OPCOES = {
@@ -33,9 +37,10 @@ const App = () => {
     }
   } // o formato json é exigência da API
  
-  const[errorMessage, setErrorMessage] = useState('');
  
   const fetchMovies = async () => {
+    //setIsLoading(true);
+    setErrorMessage("");
     try{
       const endpoint = `${API_URL_BASE}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endpoint, API_OPCOES);
@@ -45,16 +50,24 @@ const App = () => {
  
       const data = await response.json();
  
-      console.log(data);
+      if(data.Response == "False"){
+        setErrorMessage(data.Error ||"Falha ao consultar filmes");
+        setMovieList([]);
+        return
+      }
+ 
+      setMovieList(data.results|| []);
+ 
     } catch (error){
       console.error(`Erro ao buscar filmes: ${error}`);
       setErrorMessage('Erro ao buscar filmes. Favor tentar mais tarde.');
     }
   }
-
+ 
   useEffect(() =>{
     fetchMovies();
   }, [] )
+ 
   return(
     <main>
       <div className="pattern"/>
@@ -67,9 +80,19 @@ const App = () => {
         </header>
         <Buscar termoBusca={termoBusca} setTermoBusca={setTermoBusca}/>
         <h1 className="text-white">{termoBusca}</h1>
-        <section className='all-movies'>
+        <section className="all-movies">
           <h2>Todos os filmes</h2>
-          {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+          {isLoading?(
+            <p className="text-white">Carregando...</p>
+          ): errorMessage? (
+          <p className="text-red-500">{errorMessage}</p>
+          ): (
+            <ul>
+              {movieList.map((movie) =>(
+                <p className="text-white">{movie.title}</p>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </main>
