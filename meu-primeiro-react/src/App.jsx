@@ -28,7 +28,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
  
   const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;
-  const API_URL_BASE = 'https://api.themoviedb.org/3'
+  const API_URL_BASE = 'https://api.themoviedb.org/3';
   const API_OPCOES = {
     method: 'GET',
     headers: {
@@ -51,12 +51,12 @@ const App = () => {
       const data = await response.json();
  
       if(data.Response == "False"){
-        setErrorMessage(data.Error ||"Falha ao consultar filmes");
+        setErrorMessage(data.Error) ||"Falha ao consultar filmes";
         setMovieList([]);
-        return
+        return;
       }
  
-      setMovieList(data.results|| []);
+      setMovieList(data.results || []);
  
     } catch (error){
       console.error(`Erro ao buscar filmes: ${error}`);
@@ -75,15 +75,15 @@ const App = () => {
         <header>
           <img src="./hero.png" alt="Banner do Herói" />
           <h1>
-            Encontre Os <span className="text-gradient">Filmes</span> Que Você vai Gostar
+            Encontre Os <span className="text-gradient">Filmes</span> Que Você Vai Gostar
           </h1>
         </header>
         <Buscar termoBusca={termoBusca} setTermoBusca={setTermoBusca}/>
         <h1 className="text-white">{termoBusca}</h1>
-        <section className="all-movies">
-          <h2>Todos os filmes</h2>
+        <section className='all-movies'>
+          <h2 className="mt-[40px]">Todos os filmes</h2>
           {isLoading?(
-            <p className="text-white">Carregando...</p>
+            <Spinner />
           ): errorMessage? (
           <p className="text-red-500">{errorMessage}</p>
           ): (
@@ -92,7 +92,8 @@ const App = () => {
                 <p className="text-white">{movie.title}</p>
               ))}
             </ul>
-          )}
+          )
+        }
         </section>
       </div>
     </main>
